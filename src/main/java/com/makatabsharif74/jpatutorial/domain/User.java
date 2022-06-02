@@ -12,6 +12,7 @@ public class User {
     public static final String LAST_NAME = "last_name";
     public static final String USERNAME = "user_name";
     public static final String PASSWORD = "password";
+    public static final String IS_ACTIVE = "is_active";
 
     @Id
     @GeneratedValue
@@ -26,8 +27,11 @@ public class User {
     @Column(name = USERNAME, unique = true)
     private String username;
 
-    @Column(name = PASSWORD)
+    @Column(name = PASSWORD, columnDefinition = "varchar(2048)")
     private String password;
+
+    @Column(name = IS_ACTIVE, columnDefinition = "TINYINT(1)")
+    private Boolean isActive;
 
     public User() {
     }
