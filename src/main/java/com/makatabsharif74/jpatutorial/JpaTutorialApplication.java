@@ -17,6 +17,13 @@ public class JpaTutorialApplication {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+//        doFristExmaple(entityManager);
+
+
+        System.out.println("end");
+    }
+
+    private static void doFristExmaple(EntityManager entityManager) {
         TypedQuery<User> query = entityManager.createQuery(
                 "select u from User u", User.class
         );
@@ -35,8 +42,5 @@ public class JpaTutorialApplication {
 
         userList = query.getResultList();
         System.out.println(userList);
-
-
-        System.out.println("end");
     }
 }
