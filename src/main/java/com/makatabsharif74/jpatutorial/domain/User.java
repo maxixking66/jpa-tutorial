@@ -33,6 +33,10 @@ public class User {
     @Column(name = IS_ACTIVE, columnDefinition = "TINYINT(1)")
     private Boolean isActive;
 
+    //    one user have one wallet
+    @OneToOne
+    private Wallet wallet;
+
     public User() {
     }
 
@@ -90,6 +94,14 @@ public class User {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     @Override

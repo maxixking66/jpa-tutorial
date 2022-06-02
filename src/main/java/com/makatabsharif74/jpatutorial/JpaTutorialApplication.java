@@ -23,7 +23,7 @@ public class JpaTutorialApplication {
         System.out.println("end");
     }
 
-    private static void doFristExmaple(EntityManager entityManager) {
+    private static void doFirstExample(EntityManager entityManager) {
         TypedQuery<User> query = entityManager.createQuery(
                 "select u from User u", User.class
         );
