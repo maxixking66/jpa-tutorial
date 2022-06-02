@@ -1,9 +1,6 @@
 package com.makatabsharif74.jpatutorial.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = User.TABLE_NAME)
@@ -11,16 +8,25 @@ public class User {
 
     public static final String TABLE_NAME = "tbl_user";
 
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String USERNAME = "user_name";
+    public static final String PASSWORD = "password";
+
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column(name = FIRST_NAME)
     private String firstName;
 
+    @Column(name = LAST_NAME)
     private String lastName;
 
+    @Column(name = USERNAME, unique = true)
     private String username;
 
+    @Column(name = PASSWORD)
     private String password;
 
     public User() {
