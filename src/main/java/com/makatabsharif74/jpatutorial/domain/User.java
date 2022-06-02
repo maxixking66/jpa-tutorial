@@ -1,6 +1,8 @@
 package com.makatabsharif74.jpatutorial.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = User.TABLE_NAME)
@@ -36,6 +38,9 @@ public class User {
     //    one user have one wallet
     @OneToOne
     private Wallet wallet;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Tag> tags = new HashSet<>();
 
     public User() {
     }
@@ -102,6 +107,14 @@ public class User {
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     @Override
