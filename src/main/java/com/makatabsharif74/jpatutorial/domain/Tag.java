@@ -1,3 +1,4 @@
+/*
 package com.makatabsharif74.jpatutorial.domain;
 
 import javax.persistence.*;
@@ -44,3 +45,4 @@ public class Tag {
     }
 
 }
+*/
