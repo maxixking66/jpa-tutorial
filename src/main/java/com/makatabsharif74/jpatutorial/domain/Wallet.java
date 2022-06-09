@@ -62,4 +62,11 @@ public class Wallet extends BaseEntity<Long> {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "totalAmount=" + totalAmount +
+                '}';
+    }
 }

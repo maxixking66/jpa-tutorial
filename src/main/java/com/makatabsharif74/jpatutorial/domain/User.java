@@ -2,10 +2,7 @@ package com.makatabsharif74.jpatutorial.domain;
 
 import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = User.TABLE_NAME)
@@ -35,7 +32,7 @@ public class User extends BaseEntity<Long> {
     private Boolean isActive;
 
     //    one user have one wallet
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Wallet wallet;
 
     public User() {
@@ -106,7 +103,8 @@ public class User extends BaseEntity<Long> {
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", isActive=" + isActive +
+                ", isActive=" + isActive + '\'' +
+                ", wallet=" + wallet + '\'' +
                 '}';
     }
 }

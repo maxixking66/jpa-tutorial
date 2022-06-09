@@ -3,11 +3,8 @@ package com.makatabsharif74.jpatutorial.domain;
 import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Product extends BaseEntity<Long> {
 
     private Long price;

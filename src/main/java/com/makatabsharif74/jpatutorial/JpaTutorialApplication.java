@@ -13,11 +13,28 @@ public class JpaTutorialApplication {
 
     public static void main(String[] args) {
 
-//        insertUserWithUserService();
 
-        ApplicationContext.getUserRepository().getUsersBriefProjection()
-                .forEach(data -> System.out.println(data));
+        EntityManager entityManager =
+                HibernateUtil.getEntityManagerFactory().createEntityManager();
 
+        List<Cart> carts = entityManager.createQuery(
+                "select c from Cart c", Cart.class).getResultList();
+
+        System.out.println("cart is here");
+
+        System.out.println(carts);
+
+//        addProductsToCart();
+    }
+
+    private static void showFetchTypeExmaple() {
+        List<User> all = ApplicationContext.getUserService().findAll();
+
+        System.out.println("all is here");
+
+        all.forEach(data -> System.out.println(data));
+
+        System.out.println("done");
     }
 
     private static void addProductsToCart() {
