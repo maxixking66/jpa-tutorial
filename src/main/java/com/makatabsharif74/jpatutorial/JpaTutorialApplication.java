@@ -13,6 +13,14 @@ public class JpaTutorialApplication {
 
     public static void main(String[] args) {
 
+//        insertUserWithUserService();
+
+        ApplicationContext.getUserRepository().getUsersBriefProjection()
+                .forEach(data -> System.out.println(data));
+
+    }
+
+    private static void addProductsToCart() {
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
 
         entityManager.getTransaction().begin();
