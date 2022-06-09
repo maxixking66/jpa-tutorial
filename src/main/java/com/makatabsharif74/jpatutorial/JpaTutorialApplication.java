@@ -35,7 +35,7 @@ public class JpaTutorialApplication {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        User user = new User("mohsen", "asgari", "mat", "12345678");
+        User user = new User("mohsen", "asgari", "mat", "12345678", true);
         entityManager.persist(user);
         System.out.println(user);
         transaction.commit();
