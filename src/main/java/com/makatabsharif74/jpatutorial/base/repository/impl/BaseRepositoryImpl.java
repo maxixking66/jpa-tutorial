@@ -23,13 +23,11 @@ public abstract class BaseRepositoryImpl<E extends BaseEntity<ID>, ID extends Se
 
     @Override
     public E save(E e) {
-        beginTransaction();
         if (e.getId() == null) {
             entityManager.persist(e);
         } else {
             e = entityManager.merge(e);
         }
-        commitTransaction();
         return e;
     }
 
