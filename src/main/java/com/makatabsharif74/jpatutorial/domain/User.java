@@ -1,12 +1,15 @@
 package com.makatabsharif74.jpatutorial.domain;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = User.TABLE_NAME)
-public class User {
+public class User extends BaseEntity<Long> {
 
     public static final String TABLE_NAME = "tbl_user";
 
@@ -15,10 +18,6 @@ public class User {
     public static final String USERNAME = "user_name";
     public static final String PASSWORD = "password";
     public static final String IS_ACTIVE = "is_active";
-
-    @Id
-    @GeneratedValue
-    private Long id;
 
     @Column(name = FIRST_NAME)
     private String firstName;
@@ -39,26 +38,16 @@ public class User {
     @OneToOne
     private Wallet wallet;
 
-    @ManyToMany(mappedBy = "users")
-    private Set<Tag> tags = new HashSet<>();
-
     public User() {
     }
 
     public User(String firstName, String lastName,
-                String username, String password) {
+                String username, String password, Boolean isActive) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.isActive = isActive;
     }
 
     public String getFirstName() {
@@ -109,18 +98,10 @@ public class User {
         this.wallet = wallet;
     }
 
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +

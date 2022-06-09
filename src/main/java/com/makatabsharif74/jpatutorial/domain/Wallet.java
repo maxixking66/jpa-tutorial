@@ -1,16 +1,16 @@
 package com.makatabsharif74.jpatutorial.domain;
 
-import javax.persistence.*;
+import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = Wallet.TABLE_NAME)
-public class Wallet {
+public class Wallet extends BaseEntity<Long> {
 
     public static final String TABLE_NAME = "wallet";
-
-    @Id
-    @GeneratedValue
-    private Long id;
 
     private Long totalAmount;
 
@@ -25,18 +25,10 @@ public class Wallet {
     }
 
     public Wallet(Long id, Long totalAmount, Long cashAmount, Long creditAmount) {
-        this.id = id;
+        super(id);
         this.totalAmount = totalAmount;
         this.cashAmount = cashAmount;
         this.creditAmount = creditAmount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getTotalAmount() {
