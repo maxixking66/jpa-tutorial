@@ -1,8 +1,8 @@
 package com.makatabsharif74.jpatutorial;
 
-import com.makatabsharif74.jpatutorial.domain.User;
-import com.makatabsharif74.jpatutorial.domain.Wallet;
+import com.makatabsharif74.jpatutorial.domain.*;
 import com.makatabsharif74.jpatutorial.util.ApplicationContext;
+import com.makatabsharif74.jpatutorial.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -13,24 +13,43 @@ public class JpaTutorialApplication {
 
     public static void main(String[] args) {
 
+        EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        Radio radio = new Radio();
+        radio.setFrequency(10);
+        radio.setPower(110L);
+        radio.setPrice(11000L);
+        entityManager.persist(radio);
+
+
+        TV tv = new TV();
+        tv.setInch(42);
+        tv.setPower(220L);
+        tv.setPrice(22000L);
+        entityManager.persist(tv);
+
+        Cart cart = new Cart();
+        cart.getProductList().add(radio);
+        cart.getProductList().add(tv);
+        entityManager.persist(cart);
+
+        entityManager.getTransaction().commit();
+
+
         System.out.println(
-                ApplicationContext.getUserRepository().findAll()
+                entityManager.createQuery("select c from Cart c", Cart.class).getResultList()
         );
 
-        insertUserWithUserService();
-
-//        insertUserWithWallet();
-
-        System.out.println(
-                ApplicationContext.getUserRepository().findAll()
-        );
-
-
+        /*System.out.println(
+                entityManager.createQuery("select c from Radio c", Radio.class).getResultList()
+        );*/
     }
 
     private static void insertUserWithUserService() {
         ApplicationContext.getUserService().save(
-                new User("mehrshad", "samaei", "mehrshad-1", "1333333", true)
+                new User("mehrshad", "samaei", null, "1333333", true)
         );
     }
 
@@ -66,17 +85,5 @@ public class JpaTutorialApplication {
 
         userList = query.getResultList();
         System.out.println(userList);
-    }
-}
-
-class Product {
-
-}
-
-class Cart {
-    Product[] products = new Product[10];
-
-    private void test() {
-        products[0] = new Product();
     }
 }
