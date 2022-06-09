@@ -1,10 +1,9 @@
 package com.makatabsharif74.jpatutorial;
 
 import com.makatabsharif74.jpatutorial.domain.User;
-import com.makatabsharif74.jpatutorial.util.HibernateUtil;
+import com.makatabsharif74.jpatutorial.util.ApplicationContext;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -12,15 +11,20 @@ import java.util.List;
 public class JpaTutorialApplication {
 
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory =
-                HibernateUtil.getEntityManagerFactory();
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        System.out.println(
+                ApplicationContext.getUserRepository().findAll()
+        );
 
-//        doFristExmaple(entityManager);
+        User user = ApplicationContext.getUserRepository().findById(2L);
+        user.setActive(true);
+        ApplicationContext.getUserRepository().save(user);
+
+        System.out.println(
+                ApplicationContext.getUserRepository().findAll()
+        );
 
 
-        System.out.println("end");
     }
 
     private static void doFirstExample(EntityManager entityManager) {
