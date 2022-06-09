@@ -12,11 +12,11 @@ public class Wallet extends BaseEntity<Long> {
 
     public static final String TABLE_NAME = "wallet";
 
-    private Long totalAmount;
+    private Long totalAmount = 0L;
 
-    private Long cashAmount;
+    private Long cashAmount = 0L;
 
-    private Long creditAmount;
+    private Long creditAmount = 0L;
 
     @OneToOne(mappedBy = "wallet")
     private User user;

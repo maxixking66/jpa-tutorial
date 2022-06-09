@@ -1,6 +1,7 @@
 package com.makatabsharif74.jpatutorial;
 
 import com.makatabsharif74.jpatutorial.domain.User;
+import com.makatabsharif74.jpatutorial.domain.Wallet;
 import com.makatabsharif74.jpatutorial.util.ApplicationContext;
 
 import javax.persistence.EntityManager;
@@ -16,15 +17,25 @@ public class JpaTutorialApplication {
                 ApplicationContext.getUserRepository().findAll()
         );
 
-        User user = ApplicationContext.getUserRepository().findById(2L);
-        user.setActive(true);
-        ApplicationContext.getUserRepository().save(user);
+        insertUserWithWallet();
 
         System.out.println(
                 ApplicationContext.getUserRepository().findAll()
         );
 
 
+    }
+
+    private static void insertUserWithWallet() {
+        Wallet wallet = new Wallet();
+        wallet = ApplicationContext.getWalletRepository().save(wallet);
+//        Wallet newW = new Wallet();
+//        newW.setId(wallet.getId());
+        User user = new User();
+        user.setLastName("saberi");
+        user.setActive(true);
+        user.setWallet(wallet);
+        ApplicationContext.getUserRepository().save(user);
     }
 
     private static void doFirstExample(EntityManager entityManager) {
@@ -46,5 +57,17 @@ public class JpaTutorialApplication {
 
         userList = query.getResultList();
         System.out.println(userList);
+    }
+}
+
+class Product {
+
+}
+
+class Cart {
+    Product[] products = new Product[10];
+
+    private void test() {
+        products[0] = new Product();
     }
 }
