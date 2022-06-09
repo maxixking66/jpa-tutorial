@@ -17,7 +17,9 @@ public class JpaTutorialApplication {
                 ApplicationContext.getUserRepository().findAll()
         );
 
-        insertUserWithWallet();
+        insertUserWithUserService();
+
+//        insertUserWithWallet();
 
         System.out.println(
                 ApplicationContext.getUserRepository().findAll()
@@ -26,16 +28,23 @@ public class JpaTutorialApplication {
 
     }
 
+    private static void insertUserWithUserService() {
+        ApplicationContext.getUserService().save(
+                new User("mehrshad", "samaei", "mehrshad-1", "1333333", true)
+        );
+    }
+
     private static void insertUserWithWallet() {
         Wallet wallet = new Wallet();
         wallet = ApplicationContext.getWalletRepository().save(wallet);
 //        Wallet newW = new Wallet();
 //        newW.setId(wallet.getId());
         User user = new User();
-        user.setLastName("saberi");
+        user.setLastName("asgari");
         user.setActive(true);
         user.setWallet(wallet);
-        ApplicationContext.getUserRepository().save(user);
+        throw new RuntimeException();
+//        ApplicationContext.getUserRepository().save(user);
     }
 
     private static void doFirstExample(EntityManager entityManager) {
