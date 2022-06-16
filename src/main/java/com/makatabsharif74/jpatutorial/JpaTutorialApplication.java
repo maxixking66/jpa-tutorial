@@ -19,14 +19,9 @@ public class JpaTutorialApplication {
 
         entityManager.getTransaction().begin();
 
-        User user = new User("hamed", "mohammadian");
-        user.setId(5L);
-        user.setUsername("hamed@");
-        user.setActive(false);
-        Wallet wallet = new Wallet(6L, 1500L, 1500L, 1500L);
-        user.setWallet(wallet);
-
-        entityManager.merge(user);
+        entityManager.remove(
+                entityManager.find(User.class, 4L)
+        );
 
         entityManager.getTransaction().commit();
 
