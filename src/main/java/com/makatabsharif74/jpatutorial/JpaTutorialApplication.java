@@ -4,6 +4,7 @@ import com.makatabsharif74.jpatutorial.domain.*;
 import com.makatabsharif74.jpatutorial.util.ApplicationContext;
 import com.makatabsharif74.jpatutorial.util.HibernateUtil;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
@@ -18,10 +19,21 @@ public class JpaTutorialApplication {
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
 
-        List<User> userList = entityManager.createQuery(
-//                "select u from User u", User.class
-                "select distinct u from User u join fetch u.mobileNumbers join fetch u.levels join fetch u.wallet", User.class
-        ).getResultList();
+        TypedQuery<User> typedQuery = entityManager.createQuery(
+                "from User", User.class
+        );
+
+        EntityGraph<User> entityGraph = entityManager.createEntityGraph(User.class);
+        entityGraph.addAttributeNodes(
+                "mobileNumbers", "levels", "wallet"
+        );
+
+        typedQuery.setHint(
+                "javax.persistence.fetchgraph", entityGraph
+        );
+
+
+        List<User> userList = typedQuery.getResultList();
 
         System.out.println("first query");
 
@@ -31,6 +43,7 @@ public class JpaTutorialApplication {
             System.out.println(user.getMobileNumbers());
             System.out.println(user.getLevels());
             System.out.println(user.getWallet());
+            System.out.println("---------");
         });
 
     }
