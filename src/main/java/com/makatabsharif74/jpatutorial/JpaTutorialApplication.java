@@ -19,19 +19,15 @@ public class JpaTutorialApplication {
 
         entityManager.getTransaction().begin();
 
-        User user = entityManager.find(User.class, 15L);
+        User user = new User("hamed", "mohammadian");
+//        without cascade
+        /*Wallet wallet = new Wallet();
+        entityManager.persist(wallet);
+        user.setWallet(wallet);*/
 
-        System.out.println(user);
-
-        user.setFirstName("arian");
-        user.setLastName("aliani");
-
-        System.out.println(user);
-
-        entityManager.refresh(user);
-
-        System.out.println(user);
-
+//        with cascade
+        user.setWallet(new Wallet());
+        entityManager.persist(user);
 
         entityManager.getTransaction().commit();
 
