@@ -17,14 +17,15 @@ public class JpaTutorialApplication {
         EntityManager entityManager =
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
-        List<Cart> carts = entityManager.createQuery(
-                "select c from Cart c", Cart.class).getResultList();
+        entityManager.getTransaction().begin();
 
-        System.out.println("cart is here");
+        User user = new User("ali", "mehrabi");
 
-        System.out.println(carts);
+        System.out.println(entityManager.contains(user));
+        ;
 
-//        addProductsToCart();
+        entityManager.getTransaction().commit();
+
     }
 
     private static void showFetchTypeExample() {
