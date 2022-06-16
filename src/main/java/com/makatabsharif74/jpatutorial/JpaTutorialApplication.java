@@ -27,7 +27,7 @@ public class JpaTutorialApplication {
 //        addProductsToCart();
     }
 
-    private static void showFetchTypeExmaple() {
+    private static void showFetchTypeExample() {
         List<User> all = ApplicationContext.getUserService().findAll();
 
         System.out.println("all is here");
