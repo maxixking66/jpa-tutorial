@@ -1,6 +1,7 @@
 package com.makatabsharif74.jpatutorial.domain;
 
 import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
+import com.makatabsharif74.jpatutorial.domain.embedables.BankInfo;
 import com.makatabsharif74.jpatutorial.domain.enumeration.UserLevel;
 
 import javax.persistence.*;
@@ -64,6 +65,8 @@ public class User extends BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     private Set<UserLevel> levels = new HashSet<>();
 
+    //    @Embedded
+    private BankInfo bankInfo;
 
     public User() {
     }
