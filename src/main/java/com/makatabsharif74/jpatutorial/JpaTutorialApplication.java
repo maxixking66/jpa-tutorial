@@ -17,20 +17,16 @@ public class JpaTutorialApplication {
         EntityManager entityManager =
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
+
+        User user = entityManager.find(User.class, 12L);
+
         entityManager.getTransaction().begin();
 
-        User user = new User("armin", "aliani");
-
         System.out.println(entityManager.contains(user));
 
-        entityManager.persist(user);
+        System.out.println(user);
 
-        System.out.println(entityManager.contains(user));
-
-        user.setFirstName("alireza");
-        user.setLastName("eshghi");
-        user.setActive(true);
-        user.setUsername("esh");
+        user.setLastName("marjani");
 
         entityManager.getTransaction().commit();
 
