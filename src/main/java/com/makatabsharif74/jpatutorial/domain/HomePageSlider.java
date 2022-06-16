@@ -4,6 +4,7 @@ import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class HomePageSlider extends BaseEntity<Long> {
     private String name;
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "home_pages_slider_id")
     private List<HomePageSliderRow> rows = new ArrayList<>();
 
     public Boolean getActive() {
