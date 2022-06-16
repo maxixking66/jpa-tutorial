@@ -19,10 +19,18 @@ public class JpaTutorialApplication {
 
         entityManager.getTransaction().begin();
 
-        User user = new User("ali", "mehrabi");
+        User user = new User("armin", "aliani");
 
         System.out.println(entityManager.contains(user));
-        ;
+
+        entityManager.persist(user);
+
+        System.out.println(entityManager.contains(user));
+
+        user.setFirstName("alireza");
+        user.setLastName("eshghi");
+        user.setActive(true);
+        user.setUsername("esh");
 
         entityManager.getTransaction().commit();
 
