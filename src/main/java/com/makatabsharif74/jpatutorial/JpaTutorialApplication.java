@@ -17,13 +17,22 @@ public class JpaTutorialApplication {
         EntityManager entityManager =
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
-        entityManager.getTransaction().begin();
+//        entityManager.getTransaction().begin();
 
-        entityManager.remove(
-                entityManager.find(User.class, 4L)
-        );
+        User user = entityManager.find(User.class, 7L);
 
-        entityManager.getTransaction().commit();
+        System.out.println(user);
+
+        user.setFirstName("armin");
+        user.getWallet().setTotalAmount(1500L);
+
+        System.out.println(user);
+
+        entityManager.refresh(user);
+
+        System.out.println(user);
+
+//        entityManager.getTransaction().commit();
 
     }
 

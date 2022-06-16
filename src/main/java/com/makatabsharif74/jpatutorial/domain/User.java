@@ -32,7 +32,8 @@ public class User extends BaseEntity<Long> {
     private Boolean isActive;
 
     //    one user have one wallet
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REMOVE, CascadeType.REFRESH})
     private Wallet wallet;
 
     public User() {
@@ -106,9 +107,6 @@ public class User extends BaseEntity<Long> {
                 "id=" + getId() +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", isActive=" + isActive + '\'' +
                 ", wallet=" + wallet + '\'' +
                 '}';
     }
