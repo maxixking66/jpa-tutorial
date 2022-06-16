@@ -19,26 +19,18 @@ public class JpaTutorialApplication {
 
         entityManager.getTransaction().begin();
 
-        User user = entityManager.find(User.class, 24L);
+        User user = entityManager.find(User.class, 15L);
 
-        System.out.println(entityManager.contains(user));
+        System.out.println(user);
 
-        entityManager.detach(user);
+        user.setFirstName("arian");
+        user.setLastName("aliani");
 
-        System.out.println(entityManager.contains(user));
+        System.out.println(user);
 
-        System.out.println(user.getId());
-        user.setFirstName("z");
-        user.setLastName("z");
+        entityManager.refresh(user);
 
-        entityManager.persist(user);
-
-        user.setFirstName("m");
-        user.setLastName("m");
-
-        /*User user = new User("zxc", "zxc");
-
-        entityManager.persist(user);*/
+        System.out.println(user);
 
 
         entityManager.getTransaction().commit();
