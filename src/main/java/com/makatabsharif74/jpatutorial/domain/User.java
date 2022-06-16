@@ -161,6 +161,22 @@ public class User extends BaseEntity<Long> {
         this.levels = levels;
     }
 
+    public BankInfo getBankInfo() {
+        return bankInfo;
+    }
+
+    public void setBankInfo(BankInfo bankInfo) {
+        this.bankInfo = bankInfo;
+    }
+
+    public Set<BankInfo> getInfos() {
+        return infos;
+    }
+
+    public void setInfos(Set<BankInfo> infos) {
+        this.infos = infos;
+    }
+
     @Override
     public String toString() {
         return "User{" +
