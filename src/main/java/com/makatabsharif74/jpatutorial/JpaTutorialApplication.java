@@ -17,19 +17,20 @@ public class JpaTutorialApplication {
         EntityManager entityManager =
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
-        User user = new User("ali", "alavi");
-
         entityManager.getTransaction().begin();
 
-        System.out.println("before merge em contains: " + entityManager.contains(user));
+        User user = entityManager.find(User.class, 15L);
 
-        user = entityManager.merge(user);
+        System.out.println("after find em contains: " + entityManager.contains(user));
+
+        entityManager.remove(user);
+
+        System.out.println("after remove em contains: " + entityManager.contains(user));
+
+        entityManager.merge(user);
 
         System.out.println("after merge em contains: " + entityManager.contains(user));
-//        System.out.println("after merge em contains mergedUser: " + entityManager.contains(mergedUser));
 
-        user.setFirstName("sirus");
-        user.setLastName("sirusi");
         entityManager.getTransaction().commit();
 
     }
