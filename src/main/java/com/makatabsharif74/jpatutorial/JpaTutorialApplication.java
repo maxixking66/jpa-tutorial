@@ -18,15 +18,20 @@ public class JpaTutorialApplication {
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
 
-        User user = entityManager.find(User.class, 12L);
+        List<User> users = entityManager.createQuery(
+                "select u from User u where u.id > :id",
+                User.class).setParameter("id", 8L).getResultList();
+
+        users.forEach(user -> {
+            System.out.println(user.getFirstName() + "--- em contains: " + entityManager.contains(user));
+        });
 
         entityManager.getTransaction().begin();
 
-        System.out.println(entityManager.contains(user));
-
-        System.out.println(user);
-
-        user.setLastName("marjani");
+        users.forEach(user -> {
+            user.setFirstName(user.getFirstName().concat("---").concat(user.getFirstName()));
+            user.setLastName(user.getLastName().concat("---").concat(user.getLastName()));
+        });
 
         entityManager.getTransaction().commit();
 
