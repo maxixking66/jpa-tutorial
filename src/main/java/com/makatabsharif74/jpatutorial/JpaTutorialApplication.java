@@ -1,7 +1,6 @@
 package com.makatabsharif74.jpatutorial;
 
 import com.makatabsharif74.jpatutorial.domain.*;
-import com.makatabsharif74.jpatutorial.domain.enumeration.HomePageSliderRowType;
 import com.makatabsharif74.jpatutorial.util.ApplicationContext;
 import com.makatabsharif74.jpatutorial.util.HibernateUtil;
 
@@ -19,17 +18,20 @@ public class JpaTutorialApplication {
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
 
-        entityManager.getTransaction().begin();
+        List<User> userList = entityManager.createQuery(
+//                "select u from User u", User.class
+                "select distinct u from User u join fetch u.mobileNumbers join fetch u.levels join fetch u.wallet", User.class
+        ).getResultList();
 
-        HomePageSliderRow row = new HomePageSliderRow();
-        row.setRowType(HomePageSliderRowType.BIG_IMG_LEFT);
-        entityManager.persist(row);
+        System.out.println("first query");
 
-        row = new HomePageSliderRow();
-        row.setRowType(HomePageSliderRowType.BIG_IMG_RIGHT);
-        entityManager.persist(row);
+        System.out.println(userList.size());
 
-        entityManager.getTransaction().commit();
+        userList.forEach(user -> {
+            System.out.println(user.getMobileNumbers());
+            System.out.println(user.getLevels());
+            System.out.println(user.getWallet());
+        });
 
     }
 

@@ -40,7 +40,7 @@ public class User extends BaseEntity<Long> {
             CascadeType.REMOVE, CascadeType.REFRESH})
     private Wallet wallet;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "user_mobile_numbers",
             joinColumns = @JoinColumn(name = "u_id")
@@ -56,7 +56,7 @@ public class User extends BaseEntity<Long> {
     @Column(name = "code", unique = true)
     private Set<Long> codes = new HashSet<>();
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "user_user_level",
             joinColumns = @JoinColumn(name = "user_id")
