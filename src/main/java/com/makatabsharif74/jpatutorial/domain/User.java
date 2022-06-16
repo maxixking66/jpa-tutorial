@@ -1,6 +1,7 @@
 package com.makatabsharif74.jpatutorial.domain;
 
 import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
+import com.makatabsharif74.jpatutorial.domain.enumeration.UserLevel;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -45,6 +46,24 @@ public class User extends BaseEntity<Long> {
     )
     @Column(name = "m_n", unique = true)
     private Set<String> mobileNumbers = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(
+            name = "user_codes",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "code", unique = true)
+    private Set<Long> codes = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(
+            name = "user_user_level",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "level")
+    @Enumerated(EnumType.STRING)
+    private Set<UserLevel> levels = new HashSet<>();
+
 
     public User() {
     }
@@ -117,6 +136,22 @@ public class User extends BaseEntity<Long> {
 
     public void setMobileNumbers(Set<String> mobileNumbers) {
         this.mobileNumbers = mobileNumbers;
+    }
+
+    public Set<Long> getCodes() {
+        return codes;
+    }
+
+    public void setCodes(Set<Long> codes) {
+        this.codes = codes;
+    }
+
+    public Set<UserLevel> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Set<UserLevel> levels) {
+        this.levels = levels;
     }
 
     @Override
