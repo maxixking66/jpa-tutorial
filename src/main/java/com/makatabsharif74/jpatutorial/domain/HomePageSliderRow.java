@@ -3,10 +3,7 @@ package com.makatabsharif74.jpatutorial.domain;
 import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
 import com.makatabsharif74.jpatutorial.domain.enumeration.HomePageSliderRowType;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +14,7 @@ public class HomePageSliderRow extends BaseEntity<Long> {
 
     private Integer rowOrder;
 
+    @Enumerated(value = EnumType.STRING)
     private HomePageSliderRowType rowType;
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})

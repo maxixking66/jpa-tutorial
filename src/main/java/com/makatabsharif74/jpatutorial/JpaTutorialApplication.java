@@ -1,6 +1,7 @@
 package com.makatabsharif74.jpatutorial;
 
 import com.makatabsharif74.jpatutorial.domain.*;
+import com.makatabsharif74.jpatutorial.domain.enumeration.HomePageSliderRowType;
 import com.makatabsharif74.jpatutorial.util.ApplicationContext;
 import com.makatabsharif74.jpatutorial.util.HibernateUtil;
 
@@ -20,12 +21,13 @@ public class JpaTutorialApplication {
 
         entityManager.getTransaction().begin();
 
-        User user = new User("x", "x");
-        user.getMobileNumbers().add("09121212121");
-        user.getMobileNumbers().add("09121212122");
-        user.getMobileNumbers().add("09121212123");
+        HomePageSliderRow row = new HomePageSliderRow();
+        row.setRowType(HomePageSliderRowType.BIG_IMG_LEFT);
+        entityManager.persist(row);
 
-        entityManager.persist(user);
+        row = new HomePageSliderRow();
+        row.setRowType(HomePageSliderRowType.BIG_IMG_RIGHT);
+        entityManager.persist(row);
 
         entityManager.getTransaction().commit();
 
