@@ -19,17 +19,21 @@ public class JpaTutorialApplication {
 
         entityManager.getTransaction().begin();
 
-        User user = entityManager.find(User.class, 15L);
+        User user = entityManager.find(User.class, 24L);
 
-        System.out.println("after find em contains: " + entityManager.contains(user));
+        System.out.println(entityManager.contains(user));
 
-        entityManager.remove(user);
+        entityManager.detach(user);
 
-        System.out.println("after remove em contains: " + entityManager.contains(user));
+        System.out.println(entityManager.contains(user));
 
-        entityManager.merge(user);
+        user.setFirstName("x");
+        user.setLastName("x");
 
-        System.out.println("after merge em contains: " + entityManager.contains(user));
+        user = entityManager.merge(user);
+
+        user.setFirstName("m");
+        user.setLastName("m");
 
         entityManager.getTransaction().commit();
 
