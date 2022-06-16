@@ -3,6 +3,8 @@ package com.makatabsharif74.jpatutorial.domain;
 import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = User.TABLE_NAME)
@@ -35,6 +37,14 @@ public class User extends BaseEntity<Long> {
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.REMOVE, CascadeType.REFRESH})
     private Wallet wallet;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "user_mobile_numbers",
+            joinColumns = @JoinColumn(name = "u_id")
+    )
+    @Column(name = "m_n", unique = true)
+    private Set<String> mobileNumbers = new HashSet<>();
 
     public User() {
     }
@@ -99,6 +109,14 @@ public class User extends BaseEntity<Long> {
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
+    }
+
+    public Set<String> getMobileNumbers() {
+        return mobileNumbers;
+    }
+
+    public void setMobileNumbers(Set<String> mobileNumbers) {
+        this.mobileNumbers = mobileNumbers;
     }
 
     @Override

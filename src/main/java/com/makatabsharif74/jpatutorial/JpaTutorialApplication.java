@@ -17,22 +17,17 @@ public class JpaTutorialApplication {
         EntityManager entityManager =
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
-//        entityManager.getTransaction().begin();
 
-        HomePageSlider homePageSlider = new HomePageSlider();
+        entityManager.getTransaction().begin();
 
-        /*homePageSlider.getRows().forEach(row -> {
-            row.getRowSections().forEach(rowSection -> {
-                rowSection.getSectionDetails().forEach(sectionDetail -> {
-                    entityManager.persist(sectionDetail);
-                });
-                entityManager.persist(rowSection);
-            });
-            entityManager.persist(row);
-        });*/
-        entityManager.persist(homePageSlider);
+        User user = new User("x", "x");
+        user.getMobileNumbers().add("09121212121");
+        user.getMobileNumbers().add("09121212122");
+        user.getMobileNumbers().add("09121212123");
 
-//        entityManager.getTransaction().commit();
+        entityManager.persist(user);
+
+        entityManager.getTransaction().commit();
 
     }
 
