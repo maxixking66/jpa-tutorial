@@ -19,18 +19,18 @@ public class JpaTutorialApplication {
 
 //        entityManager.getTransaction().begin();
 
-        User user = entityManager.find(User.class, 7L);
+        HomePageSlider homePageSlider = new HomePageSlider();
 
-        System.out.println(user);
-
-        user.setFirstName("armin");
-        user.getWallet().setTotalAmount(1500L);
-
-        System.out.println(user);
-
-        entityManager.refresh(user);
-
-        System.out.println(user);
+        /*homePageSlider.getRows().forEach(row -> {
+            row.getRowSections().forEach(rowSection -> {
+                rowSection.getSectionDetails().forEach(sectionDetail -> {
+                    entityManager.persist(sectionDetail);
+                });
+                entityManager.persist(rowSection);
+            });
+            entityManager.persist(row);
+        });*/
+        entityManager.persist(homePageSlider);
 
 //        entityManager.getTransaction().commit();
 
