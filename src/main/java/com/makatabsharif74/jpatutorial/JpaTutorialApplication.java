@@ -27,13 +27,19 @@ public class JpaTutorialApplication {
 
         System.out.println(entityManager.contains(user));
 
-        user.setFirstName("x");
-        user.setLastName("x");
+        System.out.println(user.getId());
+        user.setFirstName("z");
+        user.setLastName("z");
 
-        user = entityManager.merge(user);
+        entityManager.persist(user);
 
         user.setFirstName("m");
         user.setLastName("m");
+
+        /*User user = new User("zxc", "zxc");
+
+        entityManager.persist(user);*/
+
 
         entityManager.getTransaction().commit();
 
