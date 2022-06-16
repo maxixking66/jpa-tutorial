@@ -68,6 +68,10 @@ public class User extends BaseEntity<Long> {
     //    @Embedded
     private BankInfo bankInfo;
 
+    @ElementCollection
+    @CollectionTable(name = "user_bank_infos")
+    private Set<BankInfo> infos = new HashSet<>();
+
     public User() {
     }
 
