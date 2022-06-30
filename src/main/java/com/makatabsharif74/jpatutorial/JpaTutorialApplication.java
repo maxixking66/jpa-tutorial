@@ -8,9 +8,7 @@ import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class JpaTutorialApplication {
 
@@ -20,19 +18,31 @@ public class JpaTutorialApplication {
         EntityManager entityManager =
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
-        EntityGraph<?> entityGraph = entityManager.createEntityGraph(HomePageSlider.FETCH_ALL_GRAPH);
 
-        Map<String, Object> properties = new HashMap<>();
-        properties.put(
-                "javax.persistence.fetchgraph", entityGraph
+        TypedQuery<Long> idQuery = entityManager.createQuery(
+                "select u.id from User u", Long.class
         );
 
-        HomePageSlider homePageSlider = entityManager.find(HomePageSlider.class, 11L, properties);
-//        HomePageSlider homePageSlider = entityManager.find(HomePageSlider.class, 11L);
+        idQuery.setMaxResults(2);
+        idQuery.setFirstResult(2);
 
-        System.out.println("done");
-        System.out.println(homePageSlider);
+        List<Long> ids = idQuery.getResultList();
+        System.out.println(ids);
 
+        TypedQuery<User> userQuery = entityManager.createQuery(
+                "select u from User u where u.id in :ids",
+                User.class
+        ).setParameter("ids", ids);
+
+        EntityGraph<?> entityGraph = entityManager.createEntityGraph(User.class);
+        entityGraph.addAttributeNodes("mobileNumbers");
+        userQuery.setHint("javax.persistence.fetchgraph", entityGraph);
+
+        List<User> resultList = userQuery.getResultList();
+        resultList.forEach(user -> {
+            System.out.print(user.getId() + ": ");
+            System.out.println(user.getMobileNumbers());
+        });
 
     }
 
