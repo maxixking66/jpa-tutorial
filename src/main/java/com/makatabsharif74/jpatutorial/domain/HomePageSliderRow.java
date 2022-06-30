@@ -52,4 +52,12 @@ public class HomePageSliderRow extends BaseEntity<Long> {
     public void setRowSections(List<HomePageSliderRowSection> rowSections) {
         this.rowSections = rowSections;
     }
+
+    @Override
+    public String toString() {
+        return "HomePageSliderRow{" +
+                "id=" + getId() + ", " +
+                "rowSections=" + rowSections +
+                '}';
+    }
 }

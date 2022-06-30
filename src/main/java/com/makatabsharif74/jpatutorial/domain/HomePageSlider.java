@@ -43,4 +43,12 @@ public class HomePageSlider extends BaseEntity<Long> {
     public void setRows(List<HomePageSliderRow> rows) {
         this.rows = rows;
     }
+
+    @Override
+    public String toString() {
+        return "HomePageSlider{" +
+                "id=" + getId() + ", " +
+                "rows=" + rows +
+                '}';
+    }
 }

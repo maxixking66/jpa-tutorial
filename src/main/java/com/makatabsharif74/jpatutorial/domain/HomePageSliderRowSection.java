@@ -43,4 +43,12 @@ public class HomePageSliderRowSection extends BaseEntity<Long> {
     public void setSectionDetails(List<HomePageSliderRowSectionDetail> sectionDetails) {
         this.sectionDetails = sectionDetails;
     }
+
+    @Override
+    public String toString() {
+        return "HomePageSliderRowSection{" +
+                "id=" + getId() + ", " +
+                "sectionDetails=" + sectionDetails +
+                '}';
+    }
 }

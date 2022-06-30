@@ -26,4 +26,9 @@ public class HomePageSliderRowSectionDetail extends BaseEntity<Long> {
     public void setLink(String link) {
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return "HomePageSliderRowSectionDetail{" + getId() + "}";
+    }
 }
