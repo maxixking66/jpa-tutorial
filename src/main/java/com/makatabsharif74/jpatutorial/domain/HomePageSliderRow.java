@@ -4,8 +4,8 @@ import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
 import com.makatabsharif74.jpatutorial.domain.enumeration.HomePageSliderRowType;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class HomePageSliderRow extends BaseEntity<Long> {
@@ -19,9 +19,12 @@ public class HomePageSliderRow extends BaseEntity<Long> {
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "row_id")
-    private List<HomePageSliderRowSection> rowSections = new ArrayList<>();
+    private Set<HomePageSliderRowSection> rowSections = new HashSet<>();
 
-    public HomePageSliderRow(List<HomePageSliderRowSection> rowSections) {
+    public HomePageSliderRow() {
+    }
+
+    public HomePageSliderRow(Set<HomePageSliderRowSection> rowSections) {
         this.rowSections = rowSections;
     }
 
@@ -49,11 +52,11 @@ public class HomePageSliderRow extends BaseEntity<Long> {
         this.rowType = rowType;
     }
 
-    public List<HomePageSliderRowSection> getRowSections() {
+    public Set<HomePageSliderRowSection> getRowSections() {
         return rowSections;
     }
 
-    public void setRowSections(List<HomePageSliderRowSection> rowSections) {
+    public void setRowSections(Set<HomePageSliderRowSection> rowSections) {
         this.rowSections = rowSections;
     }
 

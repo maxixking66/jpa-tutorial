@@ -4,11 +4,13 @@ import com.makatabsharif74.jpatutorial.domain.*;
 import com.makatabsharif74.jpatutorial.util.ApplicationContext;
 import com.makatabsharif74.jpatutorial.util.HibernateUtil;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JpaTutorialApplication {
 
@@ -18,85 +20,19 @@ public class JpaTutorialApplication {
         EntityManager entityManager =
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
-        entityManager.getTransaction().begin();
-        HomePageSlider homePageSlider = new HomePageSlider();
-        homePageSlider.setRows(
-                Arrays.asList(
-                        new HomePageSliderRow(
-                                Arrays.asList(
-                                        new HomePageSliderRowSection(
-                                                Arrays.asList(
-                                                        new HomePageSliderRowSectionDetail(),
-                                                        new HomePageSliderRowSectionDetail(),
-                                                        new HomePageSliderRowSectionDetail()
-                                                )
-                                        ),
-                                        new HomePageSliderRowSection(
-                                                Arrays.asList(
-                                                        new HomePageSliderRowSectionDetail(),
-                                                        new HomePageSliderRowSectionDetail(),
-                                                        new HomePageSliderRowSectionDetail()
-                                                )
-                                        ),
-                                        new HomePageSliderRowSection(
-                                                Arrays.asList(
-                                                        new HomePageSliderRowSectionDetail(),
-                                                        new HomePageSliderRowSectionDetail(),
-                                                        new HomePageSliderRowSectionDetail()
-                                                )
-                                        )
-                                )
-                        ),
-                        new HomePageSliderRow(Arrays.asList(
-                                new HomePageSliderRowSection(
-                                        Arrays.asList(
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail()
-                                        )
-                                ),
-                                new HomePageSliderRowSection(
-                                        Arrays.asList(
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail()
-                                        )
-                                ),
-                                new HomePageSliderRowSection(
-                                        Arrays.asList(
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail()
-                                        )
-                                )
-                        )),
-                        new HomePageSliderRow(Arrays.asList(
-                                new HomePageSliderRowSection(
-                                        Arrays.asList(
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail()
-                                        )
-                                ),
-                                new HomePageSliderRowSection(
-                                        Arrays.asList(
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail()
-                                        )
-                                ),
-                                new HomePageSliderRowSection(
-                                        Arrays.asList(
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail(),
-                                                new HomePageSliderRowSectionDetail()
-                                        )
-                                )
-                        ))
-                )
+        EntityGraph<?> entityGraph = entityManager.createEntityGraph(HomePageSlider.FETCH_ALL_GRAPH);
+
+        Map<String, Object> properties = new HashMap<>();
+        properties.put(
+                "javax.persistence.fetchgraph", entityGraph
         );
-        entityManager.persist(homePageSlider);
-        entityManager.getTransaction().commit();
+
+        HomePageSlider homePageSlider = entityManager.find(HomePageSlider.class, 11L, properties);
+//        HomePageSlider homePageSlider = entityManager.find(HomePageSlider.class, 11L);
+
+        System.out.println("done");
+        System.out.println(homePageSlider);
+
 
     }
 

@@ -2,15 +2,39 @@ package com.makatabsharif74.jpatutorial.domain;
 
 import com.makatabsharif74.jpatutorial.base.domain.BaseEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@NamedEntityGraphs(
+        value = {
+                @NamedEntityGraph(
+                        name = HomePageSlider.FETCH_ALL_GRAPH,
+                        attributeNodes = {
+                                @NamedAttributeNode(value = "rows", subgraph = "rows_sub_graph")
+                        }
+                        ,
+                        subgraphs = {
+                                @NamedSubgraph(
+                                        name = "rows_sub_graph",
+                                        attributeNodes = {
+                                                @NamedAttributeNode(value = "rowSections", subgraph = "rowSections_sub_graph")
+                                        }
+                                ),
+                                @NamedSubgraph(
+                                        name = "rowSections_sub_graph",
+                                        attributeNodes = {
+                                                @NamedAttributeNode(value = "sectionDetails")
+                                        }
+                                )
+                        }
+                )
+        }
+)
 public class HomePageSlider extends BaseEntity<Long> {
+
+    public static final String FETCH_ALL_GRAPH = "FETCH_ALL_GRAPH";
 
     private Boolean isActive;
 
@@ -18,7 +42,10 @@ public class HomePageSlider extends BaseEntity<Long> {
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "home_pages_slider_id")
-    private List<HomePageSliderRow> rows = new ArrayList<>();
+    private Set<HomePageSliderRow> rows = new HashSet<>();
+
+    public HomePageSlider() {
+    }
 
     public Boolean getActive() {
         return isActive;
@@ -36,11 +63,11 @@ public class HomePageSlider extends BaseEntity<Long> {
         this.name = name;
     }
 
-    public List<HomePageSliderRow> getRows() {
+    public Set<HomePageSliderRow> getRows() {
         return rows;
     }
 
-    public void setRows(List<HomePageSliderRow> rows) {
+    public void setRows(Set<HomePageSliderRow> rows) {
         this.rows = rows;
     }
 

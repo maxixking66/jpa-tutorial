@@ -6,8 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class HomePageSliderRowSection extends BaseEntity<Long> {
@@ -18,9 +18,12 @@ public class HomePageSliderRowSection extends BaseEntity<Long> {
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "row_section_id")
-    private List<HomePageSliderRowSectionDetail> sectionDetails = new ArrayList<>();
+    private Set<HomePageSliderRowSectionDetail> sectionDetails = new HashSet<>();
 
-    public HomePageSliderRowSection(List<HomePageSliderRowSectionDetail> sectionDetails) {
+    public HomePageSliderRowSection() {
+    }
+
+    public HomePageSliderRowSection(Set<HomePageSliderRowSectionDetail> sectionDetails) {
         this.sectionDetails = sectionDetails;
     }
 
@@ -40,11 +43,11 @@ public class HomePageSliderRowSection extends BaseEntity<Long> {
         this.rowOrder = rowOrder;
     }
 
-    public List<HomePageSliderRowSectionDetail> getSectionDetails() {
+    public Set<HomePageSliderRowSectionDetail> getSectionDetails() {
         return sectionDetails;
     }
 
-    public void setSectionDetails(List<HomePageSliderRowSectionDetail> sectionDetails) {
+    public void setSectionDetails(Set<HomePageSliderRowSectionDetail> sectionDetails) {
         this.sectionDetails = sectionDetails;
     }
 
