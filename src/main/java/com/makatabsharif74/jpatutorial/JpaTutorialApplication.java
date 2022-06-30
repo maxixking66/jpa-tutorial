@@ -4,10 +4,10 @@ import com.makatabsharif74.jpatutorial.domain.*;
 import com.makatabsharif74.jpatutorial.util.ApplicationContext;
 import com.makatabsharif74.jpatutorial.util.HibernateUtil;
 
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.Arrays;
 import java.util.List;
 
 public class JpaTutorialApplication {
@@ -18,33 +18,85 @@ public class JpaTutorialApplication {
         EntityManager entityManager =
                 HibernateUtil.getEntityManagerFactory().createEntityManager();
 
-
-        TypedQuery<User> typedQuery = entityManager.createQuery(
-                "from User", User.class
+        entityManager.getTransaction().begin();
+        HomePageSlider homePageSlider = new HomePageSlider();
+        homePageSlider.setRows(
+                Arrays.asList(
+                        new HomePageSliderRow(
+                                Arrays.asList(
+                                        new HomePageSliderRowSection(
+                                                Arrays.asList(
+                                                        new HomePageSliderRowSectionDetail(),
+                                                        new HomePageSliderRowSectionDetail(),
+                                                        new HomePageSliderRowSectionDetail()
+                                                )
+                                        ),
+                                        new HomePageSliderRowSection(
+                                                Arrays.asList(
+                                                        new HomePageSliderRowSectionDetail(),
+                                                        new HomePageSliderRowSectionDetail(),
+                                                        new HomePageSliderRowSectionDetail()
+                                                )
+                                        ),
+                                        new HomePageSliderRowSection(
+                                                Arrays.asList(
+                                                        new HomePageSliderRowSectionDetail(),
+                                                        new HomePageSliderRowSectionDetail(),
+                                                        new HomePageSliderRowSectionDetail()
+                                                )
+                                        )
+                                )
+                        ),
+                        new HomePageSliderRow(Arrays.asList(
+                                new HomePageSliderRowSection(
+                                        Arrays.asList(
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail()
+                                        )
+                                ),
+                                new HomePageSliderRowSection(
+                                        Arrays.asList(
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail()
+                                        )
+                                ),
+                                new HomePageSliderRowSection(
+                                        Arrays.asList(
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail()
+                                        )
+                                )
+                        )),
+                        new HomePageSliderRow(Arrays.asList(
+                                new HomePageSliderRowSection(
+                                        Arrays.asList(
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail()
+                                        )
+                                ),
+                                new HomePageSliderRowSection(
+                                        Arrays.asList(
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail()
+                                        )
+                                ),
+                                new HomePageSliderRowSection(
+                                        Arrays.asList(
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail(),
+                                                new HomePageSliderRowSectionDetail()
+                                        )
+                                )
+                        ))
+                )
         );
-
-        EntityGraph<User> entityGraph = entityManager.createEntityGraph(User.class);
-        entityGraph.addAttributeNodes(
-                "mobileNumbers", "levels", "wallet"
-        );
-
-        typedQuery.setHint(
-                "javax.persistence.fetchgraph", entityGraph
-        );
-
-
-        List<User> userList = typedQuery.getResultList();
-
-        System.out.println("first query");
-
-        System.out.println(userList.size());
-
-        userList.forEach(user -> {
-            System.out.println(user.getMobileNumbers());
-            System.out.println(user.getLevels());
-            System.out.println(user.getWallet());
-            System.out.println("---------");
-        });
+        entityManager.persist(homePageSlider);
+        entityManager.getTransaction().commit();
 
     }
 

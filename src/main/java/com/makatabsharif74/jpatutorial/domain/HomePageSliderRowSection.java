@@ -20,6 +20,10 @@ public class HomePageSliderRowSection extends BaseEntity<Long> {
     @JoinColumn(name = "row_section_id")
     private List<HomePageSliderRowSectionDetail> sectionDetails = new ArrayList<>();
 
+    public HomePageSliderRowSection(List<HomePageSliderRowSectionDetail> sectionDetails) {
+        this.sectionDetails = sectionDetails;
+    }
+
     public String getName() {
         return name;
     }
